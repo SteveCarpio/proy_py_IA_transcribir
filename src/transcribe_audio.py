@@ -7,7 +7,7 @@ import requests
 
 def convert_to_wav(audio_path):
     sound = AudioSegment.from_file(audio_path)
-    sound = sound.set_channels(1).set_frame_rate(16000)
+    sound = sound.set_channels(1).set_frame_rate(16000) # (frecuencia de muestreo en Hz)
     wav_path = "temp.wav"
     sound.export(wav_path, format="wav")
     return wav_path
@@ -38,9 +38,12 @@ def save_txt(text, path):
 def resumir_ollama(texto, modelo="mistral"):
     url = "http://localhost:11434/api/generate"
     prompt = (
-        "Resume profesionalmente el siguiente texto. "
-        "Hazlo claro, sintético y solo con la información importante:\n\n"
-        f"{texto}"
+        "Créame un resumen profesional del siguiente texto que está escrito en español."
+        "Crea un listado muy breve de los puntos hablados."
+        "Hazlo claro, sintético y solo con la información importante."
+        "Al final traduce solo el resumen en varios idiomas: Inglés, Francés y Italiano."
+        
+        f"\n\n{texto}\n\n"
     )
     data = {
         "model": modelo,
@@ -58,15 +61,18 @@ def procesar_audio(audio_file, model_dir, modelo_ollama="mistral"):
     base, _ = os.path.splitext(audio_file)
     txt_path = base + ".txt"
     save_txt(texto, txt_path)
-    print(f"Transcripción guardada en: {txt_path}")
+    print(f"\nTranscripción guardada en: {txt_path}")
+    print(f"{texto}")
 
     # Resumir
     resumen = resumir_ollama(texto, modelo=modelo_ollama)
     resumen_path = base + "_resumen.txt"
     save_txt(resumen, resumen_path)
-    print(f"Resumen guardado en: {resumen_path}")
+    print(f"\nResumen guardado en: {resumen_path}")
+    print(f"{resumen}")
 
 if __name__ == "__main__":
-    audio_file = "C:\\MisCompilados\\audios\\Paco.m4a"
-    model_dir  = "C:\\MisCompilados\\utils\\model\\vosk-model-small-es-0.42"
+    audio_file = "C:\\MisCompilados\\audios\\Reunion.m4a"
+   #model_dir  = "C:\\MisCompilados\\utils\\model\\vosk-model-small-es-0.42"
+    model_dir  = "C:\\MisCompilados\\utils\\model\\vosk-model-es-0.42"
     procesar_audio(audio_file, model_dir, modelo_ollama="mistral")
