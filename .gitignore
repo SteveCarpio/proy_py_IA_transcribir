@@ -3,6 +3,7 @@ env/
 .venv
 .vscode
 *.jsonl
+venv312
 
 
 # Ignorar archivos de Python compilados
