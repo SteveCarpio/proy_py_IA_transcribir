@@ -88,4 +88,4 @@ def procesar_audio(audio_file, model_dir, modelo_ollama="mistral"):
 if __name__ == "__main__":
     audio_file = "C:\\MisCompilados\\audios\\REUNION.mp3"
     model_dir  = "C:\\MisCompilados\\utils\\model\\vosk-model-es-0.42"  # vosk-model-small-es-0.42
-    procesar_audio(audio_file, model_dir, modelo_ollama="mistral")
+    procesar_audio(audio_file, model_dir, modelo_ollama="llama3:instruct")  #  llama3:instruct : mistral
