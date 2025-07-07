@@ -37,14 +37,28 @@ def save_txt(text, path):
 
 def resumir_ollama(texto, modelo="mistral"):
     url = "http://localhost:11434/api/generate"
-    prompt = (
-        "Créame un resumen profesional del siguiente texto que está escrito en español."
+    prompt2 = (
+        "Créame un acta profesional de la reunión que mantuvimos, el texto que está escrito en español y se debe respetar ese idioma."
+        "Indica el día y hora de la reunión y si existe el lugar también."
+        "Describe los participantes."
         "Crea un listado muy breve de los puntos hablados."
-        "Hazlo claro, sintético y solo con la información importante."
-        "Al final traduce solo el resumen en varios idiomas: Inglés, Francés y Italiano."
-        
+        "Si quedan puntos por hablar indícalo como puntos pendientes."
         f"\n\n{texto}\n\n"
     )
+
+    prompt = (
+    "A continuación tienes la transcripción de una reunión en español, posiblemente sin puntuación ni formato."
+    "Tu tarea es redactar un acta profesional de la reunión, respetando el idioma español."
+    "\n\nPor favor, sigue estas instrucciones:"
+    "\n- Indica la fecha, hora y lugar de la reunión (si esos datos aparecen en el texto; si no, deja un espacio para completarlos)."
+    "\n- Presenta una breve descripción de los participantes, indicando nombre completo y, si es posible, su empresa o rol."
+    "\n- Haz un listado breve y claro de los puntos tratados en la reunión."
+    "\n- Si quedan temas pendientes o para la próxima reunión, indícalos como 'Puntos pendientes'."
+    "\n- Mantén una redacción clara, profesional y estructurada."
+    "\n\nTranscripción de la reunión:"
+    f"\n\n{texto}\n\n"
+)
+
     data = {
         "model": modelo,
         "prompt": prompt,
@@ -72,7 +86,6 @@ def procesar_audio(audio_file, model_dir, modelo_ollama="mistral"):
     print(f"{resumen}")
 
 if __name__ == "__main__":
-    audio_file = "C:\\MisCompilados\\audios\\Reunion.m4a"
-   #model_dir  = "C:\\MisCompilados\\utils\\model\\vosk-model-small-es-0.42"
-    model_dir  = "C:\\MisCompilados\\utils\\model\\vosk-model-es-0.42"
+    audio_file = "C:\\MisCompilados\\audios\\REUNION.mp3"
+    model_dir  = "C:\\MisCompilados\\utils\\model\\vosk-model-es-0.42"  # vosk-model-small-es-0.42
     procesar_audio(audio_file, model_dir, modelo_ollama="mistral")
