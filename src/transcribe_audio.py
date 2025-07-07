@@ -75,15 +75,15 @@ def procesar_audio(audio_file, model_dir, modelo_ollama="mistral"):
     base, _ = os.path.splitext(audio_file)
     txt_path = base + ".txt"
     save_txt(texto, txt_path)
-    print(f"\nTranscripción guardada en: {txt_path}")
-    print(f"{texto}")
+    print(f"\n - Transcripción guardada en: {txt_path}")
+    print(f"\n{texto}")
 
     # Resumir
     resumen = resumir_ollama(texto, modelo=modelo_ollama)
     resumen_path = base + "_resumen.txt"
     save_txt(resumen, resumen_path)
-    print(f"\nResumen guardado en: {resumen_path}")
-    print(f"{resumen}")
+    print(f"\n\n - Resumen guardado en: {resumen_path}")
+    print(f"\n{resumen}")
 
 if __name__ == "__main__":
     audio_file = "C:\\MisCompilados\\audios\\REUNION.mp3"
