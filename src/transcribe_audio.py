@@ -48,7 +48,7 @@ def save_txt(text, path):
     with open(path, "w", encoding="utf-8") as f:
         f.write(text)
 
-def resumir_ollama(texto, modelo="llama3:instruct"):
+def resumir_ollama(texto, modelo):
     url = "http://localhost:11434/api/generate"
     prompt2 = (
         "Créame un acta profesional de la reunión que mantuvimos, el texto que está escrito en español y se debe respetar ese idioma."
@@ -81,7 +81,7 @@ def resumir_ollama(texto, modelo="llama3:instruct"):
     response.raise_for_status()
     return response.json()["response"].strip()
 
-def procesar_audio(audio_file, model_dir, modelo_ollama="llama3:instruct"):
+def procesar_audio(audio_file, model_dir, modelo_ollama):
     # Transcribir
     texto = transcribe(audio_file, model_dir)
     # Guardar transcripción
@@ -92,13 +92,14 @@ def procesar_audio(audio_file, model_dir, modelo_ollama="llama3:instruct"):
     print(f"\n{texto}")
 
     # Resumir
-    resumen = resumir_ollama(texto, modelo=modelo_ollama)
+    resumen = resumir_ollama(texto, modelo_ollama)
     resumen_path = base + "_resumen.txt"
     save_txt(resumen, resumen_path)
     print(f"\n\n - Resumen guardado en: {resumen_path}")
-    print(f"\n{resumen}")
+    print(f"\n{resumen}\n")
 
 if __name__ == "__main__":
     audio_file = "C:\\MisCompilados\\audios\\REUNION.mp3"
-    model_dir  = "C:\\MisCompilados\\utils\\model\\vosk-model-es-0.42"  # vosk-model-small-es-0.42
-    procesar_audio(audio_file, model_dir, modelo_ollama="llama3:instruct")  #  llama3:instruct : mistral
+    model_dir  = "C:\\MisCompilados\\utils\\model\\vosk-model-es-0.42"      #  [ vosk-model-small-es-0.42 ]
+    modelo_ollama = "llama3:instruct"                                       #  [ llama3:instruct | mistral ]
+    procesar_audio(audio_file, model_dir, modelo_ollama)  
