@@ -1,9 +1,11 @@
-# Primera vez: crear :  py -3.12 -m venv venv31
+# Primera vez: crear :  py -3.12 -m venv venv312
 # .\venv312\Scripts\activate
 
 # pip install pydub
-# pip install vosk pydub
+# pip install vosk 
 # pip install ffmpeg-python
+# pip install requests
+# pip freeze > requirements.txt
 
 # https://alphacephei.com/vosk/models   # -- descargar el modelos  (por ejemplo “vosk-model-small-es-0.42”).
 # Descomprime el archivo ZIP y copiar la carpeta en una ruta y ponerlo en el programa
