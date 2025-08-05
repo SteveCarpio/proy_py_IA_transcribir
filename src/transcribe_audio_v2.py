@@ -8,7 +8,7 @@
 # pip freeze > requirements.txt
 # https://alphacephei.com/vosk/models   # -- descargar el modelos  (por ejemplo “vosk-model-small-es-0.42”).
 # Descomprime el archivo ZIP y copiar la carpeta en una ruta y ponerlo en el programa
-# Agregar al path la ruta con la carpeta ..../bin del directorio zapeado..
+# Agregar al path la ruta con la carpeta ..../bin del directorio zapeado...
 ######################################################################################################################
 
 import os  # Importación de la librería para operaciones de sistema (manejo de archivos y directorios)
