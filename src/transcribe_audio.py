@@ -28,7 +28,11 @@ from datetime import datetime
 
 # Guardar la transcripción como DOCX:
 def save_docx(text, base):
-    docx_transcription_path = base + "_completo.docx"
+
+    docx_transcription_path = f"{base}\\REUNION_completo.docx"
+
+    #docx_transcription_path = base + "_completo.docx"
+
     doc = Document()
     doc.add_heading('Transcripción de la Reunión', 0)
     
@@ -40,7 +44,8 @@ def save_docx(text, base):
 
 
 def save_markdown_to_docx(markdown_text, base):
-    docx_summary_path = base + "_resumen.docx"
+    #docx_summary_path = base + "_resumen.docx"
+    docx_summary_path = f"{base}\\REUNION_resumen.docx"
     # Crear un documento Word vacío
     doc = Document()
     doc.add_heading('Resumen Profesional de la Reunión', 0)
@@ -119,8 +124,6 @@ def save_txt(text, path):
         f.write(text) # Escribir el texto en el archivo especificado
 
 
-
-
 # Función: resumir_ollama
 # Objetivo: Generar un resumen profesional de la reunión usando un modelo de IA (por ejemplo, Ollama)
 def resumir_ollama(texto, modelo_ollama, base):
@@ -147,7 +150,7 @@ def resumir_ollama(texto, modelo_ollama, base):
 
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     
-    resumen_filename = f"resumen.txt"  #  f"resumen_{timestamp}.txt"
+    resumen_filename = f"REUNION_resumen.txt"  #  f"resumen_{timestamp}.txt"
     resumen_path = os.path.join(base, resumen_filename)
 
     try:
@@ -168,7 +171,7 @@ def procesar_audio(audio_file, modelo_dir, base):
     texto = transcribe(audio_file, modelo_dir)
 
     # Guardar el texto transcrito en un archivo .txt
-    txt_path = base + "_completo.txt"
+    txt_path = f"{base}\\REUNION_completo.txt"
     save_txt(texto, txt_path)
 
     return texto, txt_path
@@ -182,7 +185,8 @@ if __name__ == "__main__":
     audio_file = "C:\\MisCompilados\\audios\\REUNION.mp3"
     modelo_dir  = "C:\\MisCompilados\\utils\\model\\vosk-model-es-0.42"      #  [ vosk-model-small-es-0.42 ]
     modelo_ollama = "llama3:instruct"                                        #  [ llama3:instruct | mistral ]
-    base, _ = os.path.splitext(audio_file)
+    ruta_salida = "C:\\MisCompilados\\tmp"
+    base = ruta_salida
 
     # Función Procesar Audio
     texto, txt_path = procesar_audio(audio_file, modelo_dir, base)  
@@ -197,4 +201,4 @@ if __name__ == "__main__":
     print(f"\n{resumen}\n")
     
     #save_summary_docx(resumen, base)
-    #save_markdown_to_docx(resumen, base)
+    save_markdown_to_docx(resumen, base)
