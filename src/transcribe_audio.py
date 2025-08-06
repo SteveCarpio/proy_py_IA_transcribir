@@ -28,23 +28,16 @@ from datetime import datetime
 
 # Guardar la transcripción como DOCX:
 def save_docx(text, base):
-
     docx_transcription_path = f"{base}\\REUNION_completo.docx"
-
-    #docx_transcription_path = base + "_completo.docx"
-
     doc = Document()
     doc.add_heading('Transcripción de la Reunión', 0)
-    
     # Agregar cada línea de texto como un párrafo
     for line in text.split("\n"):
         doc.add_paragraph(line)
-
     doc.save(docx_transcription_path)
 
-
+# Guardar la transcripción como DOCX:
 def save_markdown_to_docx(markdown_text, base):
-    #docx_summary_path = base + "_resumen.docx"
     docx_summary_path = f"{base}\\REUNION_resumen.docx"
     # Crear un documento Word vacío
     doc = Document()
@@ -166,14 +159,11 @@ def resumir_ollama(texto, modelo_ollama, base):
 # Función: procesar_audio
 # Objetivo: Transcribir el audio y luego generar un resumen utilizando la IA
 def procesar_audio(audio_file, modelo_dir, base):
-
     # Llamar a la función de transcripción para obtener el texto del audio
     texto = transcribe(audio_file, modelo_dir)
-
     # Guardar el texto transcrito en un archivo .txt
     txt_path = f"{base}\\REUNION_completo.txt"
     save_txt(texto, txt_path)
-
     return texto, txt_path
 
 ######################################################################################################################
@@ -200,5 +190,5 @@ if __name__ == "__main__":
     print(f"\n\n - Resumen guardado en: {resumen_path}")
     print(f"\n{resumen}\n")
     
-    #save_summary_docx(resumen, base)
+    # Función Salvar el txt en un formato Word enriquecido
     save_markdown_to_docx(resumen, base)
